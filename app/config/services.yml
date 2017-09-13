@@ -9,3 +9,15 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\Tag
+
+    app.user_provider:
+            class: AppBundle\Security\User\UserProvider
+            arguments: ["@doctrine.orm.entity_manager"]
+
+    app.admin_authenticator:
+         class:     AppBundle\Security\AdminAuthenticator
+         arguments: ["@security.password_encoder", "@user.repository"]
+
+    app.user_authenticator:
+         class:     AppBundle\Security\UserAuthenticator
+         arguments: ["@security.password_encoder", "@user.repository"]
