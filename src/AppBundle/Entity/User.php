@@ -64,10 +64,10 @@ class User implements AdvancedUserInterface, \Serializable
      *     unique=true
      * )
      * @Assert\NotBlank(
-     *     groups={"user-default"},
+     *     groups={"user-default", "user-register"},
      * )
      * @Assert\Length(
-     *     groups={"user-default"},
+     *     groups={"user-default", "user-register"},
      *     min="3",
      *     max="255",
      * )
@@ -87,10 +87,10 @@ class User implements AdvancedUserInterface, \Serializable
      *     unique=true
      * )
      * @Assert\NotBlank(
-     *     groups={"user-default"},
+     *     groups={"user-default", "user-register"},
      * )
      * @Assert\Length(
-     *     groups={"user-default"},
+     *     groups={"user-default", "user-register"},
      *     min="3",
      *     max="255",
      * )
@@ -109,7 +109,7 @@ class User implements AdvancedUserInterface, \Serializable
      *     nullable=false
      * )
      * @Assert\Length(
-     *     groups={"user-default"},
+     *     groups={"user-register", "user-reset"},
      *     min="8",
      *     max="255",
      * )
@@ -203,7 +203,7 @@ class User implements AdvancedUserInterface, \Serializable
      *     onDelete="CASCADE"
      * )
      * @Assert\NotBlank(
-     *     groups={"user-default"}
+     *     groups={"user-register"}
      * )
      */
     protected $group;

@@ -87,6 +87,9 @@ class Group
      *     nullable=false,
      *     onDelete="CASCADE"
      * )
+     * @Assert\NotBlank(
+     *     groups={"group-default"}
+     * )
      */
     protected $year;
 

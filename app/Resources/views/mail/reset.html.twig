@@ -1,0 +1,20 @@
+{% extends 'mail/template.html.twig' %}
+
+{% block title %}
+  {{ 'mail.reset.password'|trans }}
+{% endblock %}
+
+{% block content %}
+
+  {{ 'mail.hi'|trans }}<br><br>
+  {{ 'mail.reset.txt'|trans }}<br><br>
+
+  {% if user.role.name == 'ROLE_ADMIN' %}
+    <a href="{{ url('admin_auth_change', {'token': token}) }}">{{ url('admin_auth_change', {'token': token}) }}</a>
+  {% else %}
+    <a href="{{ url('admin_auth_change', {'token': token}) }}">{{ url('admin_auth_change', {'token': token}) }}</a>
+  {% endif %}
+  <br><br>
+  {{ 'mail.greetings'|trans }}
+
+{% endblock %}

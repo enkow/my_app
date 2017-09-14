@@ -1,27 +1,34 @@
 <?php
 /**
- * Tag controller.
+ * Group controller.
  */
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Tag;
-use AppBundle\Form\TagType;
+use AppBundle\Entity\Group;
+use AppBundle\Form\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class TagController.
+ * Class GroupController.
  *
- * @package AppBundle\Controller
+ * @package AppBundle\Controller\Admin
  *
- * @Route("/tag")
+ * @Route("/admin/group")
  */
-class TagController extends Controller
+class GroupController extends Controller
 {
+    /**
+     * Template prefix
+     *
+     * @var $prefix
+     */
+    protected $prefix = 'admin/group';
+
     /**
      * Index action.
      *
@@ -32,45 +39,40 @@ class TagController extends Controller
      * @Route(
      *     "/",
      *     defaults={"page": 1},
-     *     name="tag_index",
+     *     name="admin_group_index",
      * )
      * @Route(
      *     "/page/{page}",
      *     requirements={"page": "[1-9]\d*"},
-     *     name="tag_index_paginated",
+     *     name="group_index_paginated",
      * )
      * @Method("GET")
      */
     public function indexAction($page)
     {
-        $tags = $this->get('app.repository.tag')->findAllPaginated($page);
+        $groups = $this->get('app.repository.group')->findAll();
 
-        return $this->render(
-            'tag/index.html.twig',
-            ['tags' => $tags]
-        );
+        return $this->view('index', compact('groups'));
     }
 
     /**
      * View action.
      *
-     * @param Tag $tag Tag entity
+     * @param Group $group Group entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
      *     "/{id}",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="tag_view",
+     *     name="admin_group_view",
      * )
      * @Method("GET")
      */
-    public function viewAction(Tag $tag)
+    public function viewAction(Group $group)
     {
-        return $this->render(
-            'tag/view.html.twig',
-            ['tag' => $tag]
-        );
+        $users = [];
+        return $this->view('view', compact('group', 'users'));
     }
 
     /**
@@ -82,92 +84,83 @@ class TagController extends Controller
      *
      * @Route(
      *     "/add",
-     *     name="tag_add",
+     *     name="admin_group_add",
      * )
      * @Method({"GET", "POST"})
      */
     public function addAction(Request $request)
     {
-        $tag = new Tag();
-        $form = $this->createForm(TagType::class, $tag);
+        $group = new Group();
+        $form = $this->createForm(GroupType::class, $group);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.repository.tag')->save($tag);
+            $this->get('app.repository.group')->save($group);
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('tag_index');
+            return $this->redirectToRoute('admin_group_index');
         }
 
-        return $this->render(
-            'tag/add.html.twig',
-            ['tag' => $tag, 'form' => $form->createView()]
-        );
+        return $this->view('add', compact('group', 'form'));
     }
 
     /**
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Tag                     $tag     Tag entity
+     * @param \AppBundle\Entity\Group                     $group     Group entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
      *     "/{id}/edit",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="tag_edit",
+     *     name="admin_group_edit",
      * )
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Tag $tag)
+    public function editAction(Request $request, Group $group)
     {
-        $form = $this->createForm(TagType::class, $tag);
+        $form = $this->createForm(GroupType::class, $group);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.repository.tag')->save($tag);
+            $this->get('app.repository.group')->save($group);
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('tag_index');
+            return $this->redirectToRoute('admin_group_index');
         }
 
-        return $this->render(
-            'tag/edit.html.twig',
-            ['tag' => $tag, 'form' => $form->createView()]
-        );
+        return $this->view('edit', compact('group', 'form'));
     }
 
     /**
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Tag                     $tag     Tag entity
+     * @param \AppBundle\Entity\Group                     $group     Group entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
      *     "/{id}/delete",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="tag_delete",
+     *     name="admin_group_delete",
      * )
      * @Method({"GET", "POST"})
      */
-    public function deleteAction(Request $request, Tag $tag)
+    public function deleteAction(Request $request, Group $group)
     {
-        $form = $this->createForm(FormType::class, $tag);
+        $form = $this->createForm(FormType::class, $group);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app.repository.tag')->delete($tag);
+        if (($form->isSubmitted() && $form->isValid()) || $request->query->get('q') == 1) {
+            $this->get('app.repository.group')->delete($group);
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('tag_index');
+            return $this->redirectToRoute('admin_group_index');
         }
 
-        return $this->render(
-            'tag/delete.html.twig',
-            ['tag' => $tag, 'form' => $form->createView()]
-        );
+        return $this->view('delete', compact('group', 'form'));
     }
 }

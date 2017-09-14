@@ -1,0 +1,15 @@
+{% extends 'admin/template/page.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}
+  <i class="fa fa-trash"></i> {{ 'delete.action'|trans }} {{ group.name }} -  {{ group.year }}
+{% endblock %}
+
+{% block body %}
+  <div class="col-md-12">
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <button type="submit" class="btn btn-danger form"><i class="fa fa-trash"></i> {{ 'button.delete'|trans }}</button>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

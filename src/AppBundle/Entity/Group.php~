@@ -78,13 +78,17 @@ class Group
      * @var Group $year
      *
      * @ORM\ManyToOne(
-     *     targetEntity="AppBundle\Entity\Year"
+     *     targetEntity="AppBundle\Entity\Year",
+     *     inversedBy="groups"
      * )
      * @ORM\JoinColumn(
      *     name="year_id",
      *     referencedColumnName="id",
      *     nullable=false,
      *     onDelete="CASCADE"
+     * )
+     * @Assert\NotBlank(
+     *     groups={"group-default"}
      * )
      */
     protected $year;
@@ -107,5 +111,94 @@ class Group
     public function __construct()
     {
         $this->users = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Group
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set year
+     *
+     * @param \AppBundle\Entity\Year $year
+     * @return Group
+     */
+    public function setYear(\AppBundle\Entity\Year $year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return \AppBundle\Entity\Year
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \AppBundle\Entity\User $users
+     * @return Group
+     */
+    public function addUser(\AppBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \AppBundle\Entity\User $users
+     */
+    public function removeUser(\AppBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

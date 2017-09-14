@@ -3,13 +3,11 @@
     <li class="header">{{ 'navbar.users'|trans }}</li>
 
     <li><a href="{{ url('admin_year_index') }}"><i class="fa fa-graduation-cap"></i> <span>{{ 'navbar.year'|trans }}</span></a></li>
-
-    <li class="header">TREŚĆ STRONY</li>
-    <li><a href=""><i class="fa fa-book"></i> <span>Wpisy na bloga</span></a></li>
+    <li><a href="{{ url('admin_group_index') }}"><i class="fa fa-tags"></i> <span>{{ 'navbar.group'|trans }}</span></a></li>
 
 
 
-      <li>
+      <!-- <li>
   			<a href="#" class="expand-tree-view">
   				<i class='fa fa-tags'></i>
   				<span>Kategorie</span>
@@ -19,10 +17,10 @@
   				<li> <a href="">Kategorie wydarzeń</a> </li>
   				<li> <a href="">Kategorie aktualności</a> </li>
   			</ul>
-  		</li>
+  		</li> -->
 
 
-    <li><a href=""><i class="fa fa-sign-out "></i> <span>Wyloguj</span></a></li>
+    <li><a href="{{ url('admin_auth_logout') }}"><i class="fa fa-sign-out "></i> <span>{{ 'navbar.logout'|trans }}</span></a></li>
 
   </ul>
 </section>

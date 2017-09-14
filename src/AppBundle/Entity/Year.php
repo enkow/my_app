@@ -89,6 +89,18 @@ class Year
     protected $end;
 
     /**
+     * Is active.
+     *
+     * @var boolean $active
+     *
+     * @ORM\Column(
+     *     name="is_active",
+     *     type="boolean"
+     * )
+     */
+    protected $active;
+
+    /**
      * Groups in year
      *
      * @var ArrayCollection $groups
@@ -111,7 +123,7 @@ class Year
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -134,7 +146,7 @@ class Year
     /**
      * Get start
      *
-     * @return integer 
+     * @return integer
      */
     public function getStart()
     {
@@ -157,7 +169,7 @@ class Year
     /**
      * Get end
      *
-     * @return integer 
+     * @return integer
      */
     public function getEnd()
     {
@@ -190,10 +202,38 @@ class Year
     /**
      * Get groups
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s / %s', $this->getStart(), $this->getEnd());
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return Year
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

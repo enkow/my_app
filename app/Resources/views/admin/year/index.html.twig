@@ -9,6 +9,7 @@
             <tr>
                 <th class="id">#</th>
                 <th>{{ 'table.year'|trans }}</th>
+                <th>{{ 'table.active'|trans }}</th>
                 <th data-orderable="false"></th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
                 <tr>
                     <td>{{ item.id }}</td>
                     <td>{{ item.start }} / {{ item.end }}</td>
+                    <td><input class="year-active" type="checkbox" {% if item.active %}checked{% endif %} data-toggle="toggle" data-href="{{ url('admin_ajax_toggle_year', {'id': item.id}) }}" data-onstyle="success" data-offstyle="danger" data-on="AKTYWNY" data-off="NIEAKTYWNY"></td>
                     <td>
                         <a href="{{ url('admin_year_view', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-search"></i> {{ 'button.view'|trans }}</a>
                         <a href="{{ url('admin_year_edit', {'id': item.id}) }}" class="btn btn-info"><i class="fa fa-pencil"></i> {{ 'button.edit'|trans }}</a>
@@ -26,4 +28,18 @@
             {% endfor %}
         </tbody>
     </table>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <script>
+    $('.year-active').change(function(){
+      $.ajax({
+        method: "GET",
+        url: $(this).data('href'),
+        processData: false,
+        contentType: false,
+      });
+    });
+  </script>
 {% endblock %}

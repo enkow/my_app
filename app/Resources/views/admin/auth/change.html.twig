@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ 'change.action'|trans }}</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {% stylesheets '@bootstrap_css' '@custom_css' '@admin_css' '@datatables_css' '@sweetalert_css' %}
+      <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  </head>
+  <body class="hold-transition login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        <a href=""><b>Admin</b>LTD</a>
+      </div>
+
+      <div class="login-box-body">
+        <p class="login-box-msg">{{ 'change.your.password'|trans }}</p>
+        {% form_theme form 'bootstrap_3_layout.html.twig' %}
+        {{ form_start(form) }}
+          {{ form_widget(form) }}
+          <button type="submit" class="btn btn-success form">{{ 'button.change'|trans }}</button>
+        {{ form_end(form) }}
+      </div>
+    </div>
+
+    {% javascripts '@jquery' '@bootstrap_js' '@admin_js' '@datatables_js' '@sweetalert_js' %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+  </body>
+</html>

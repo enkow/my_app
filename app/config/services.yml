@@ -10,12 +10,6 @@ services:
         arguments:
             - AppBundle\Entity\Group
 
-    app.repository.tag:
-        class: Doctrine\ORM\EntityRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\Tag
-
     app.repository.user:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
@@ -27,6 +21,9 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\Year
+
+
+            
 
     app.user_provider:
             class: AppBundle\Security\User\UserProvider

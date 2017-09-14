@@ -1,0 +1,29 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}<i class="fa fa-tags"></i> {{ 'title.group'|trans }}{% endblock %}
+{% block subtitle %}<a href="{{ url('admin_group_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'button.add'|trans}}</a>{% endblock %}
+
+{% block body %}
+    <table class="data table">
+        <thead>
+            <tr>
+                <th class="id">#</th>
+                <th>{{ 'table.group'|trans }}</th>
+                <th data-orderable="false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in groups %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }} - {{ item.year }}</td>
+                    <td>
+                        <a href="{{ url('admin_group_view', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-search"></i> {{ 'button.view'|trans }}</a>
+                        <a href="{{ url('admin_group_edit', {'id': item.id}) }}" class="btn btn-info"><i class="fa fa-pencil"></i> {{ 'button.edit'|trans }}</a>
+                        <a href="{{ url('admin_group_delete', {'id': item.id}) }}" class="btn btn-danger deletable" data-href="{{ url('admin_group_delete', {'id': item.id, 'q': 1}) }}"><i class="fa fa-trash"></i> {{ 'button.delete'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
