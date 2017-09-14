@@ -1,30 +1,27 @@
 <?php
 /**
- * Tag entity.
+ * Year entity.
  */
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Tag.
+ * Class Year.
  *
  * @package AppBundle\Entity
  *
  * @ORM\Table(
- *     name="tags"
+ *     name="years"
  * )
  * @ORM\Entity(
- *     repositoryClass="AppBundle\Repository\TagRepository"
- * )
- * @UniqueEntity(
- *     groups={"tag-default"},
- *     fields={"name"}
+ *     repositoryClass="AppBundle\Repository\YearRepository"
  * )
  */
-class Tag
+class Year
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -50,58 +47,64 @@ class Tag
     protected $id;
 
     /**
-     * Name.
+     * Start.
      *
-     * @var string $name
+     * @var string $start
      *
      * @ORM\Column(
-     *     name="name",
-     *     type="string",
-     *     length=128,
+     *     name="start",
+     *     type="integer",
      *     nullable=false,
      * )
-     *
      * @Assert\NotBlank(
-     *     groups={"tag-default"}
+     *     groups={"year-default"}
      * )
      * @Assert\Length(
-     *     groups={"tag-default"},
-     *     min="3",
-     *     max="128",
+     *     groups={"year-default"},
+     *     min="4",
+     *     max="4",
      * )
      */
-    protected $name;
+    protected $start;
 
     /**
-     * Get id
+     * End.
      *
-     * @return integer 
+     * @var string $end
+     *
+     * @ORM\Column(
+     *     name="end",
+     *     type="integer",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"year-default"}
+     * )
+     * @Assert\Length(
+     *     groups={"year-default"},
+     *     min="4",
+     *     max="4",
+     * )
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected $end;
 
     /**
-     * Set name
+     * Groups in year
      *
-     * @param string $name
-     * @return Tag
+     * @var ArrayCollection $groups
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Group",
+     *     mappedBy="year"
+     * )
      */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+    protected $groups;
 
     /**
-     * Get name
-     *
-     * @return string 
+     * Constructor
      */
-    public function getName()
+    public function __construct()
     {
-        return $this->name;
+        $this->groups = new ArrayCollection();
     }
 }

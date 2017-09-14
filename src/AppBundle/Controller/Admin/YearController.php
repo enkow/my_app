@@ -1,0 +1,166 @@
+<?php
+/**
+ * Year controller.
+ */
+
+namespace AppBundle\Controller\Admin;
+
+use AppBundle\Entity\Year;
+use AppBundle\Form\YearType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Class YearController.
+ *
+ * @package AppBundle\Controller\Admin
+ *
+ * @Route("/admin/year")
+ */
+class YearController extends Controller
+{
+    /**
+     * Template prefix
+     *
+     * @var $prefix
+     */
+    protected $prefix = 'admin/year';
+
+    /**
+     * Index action.
+     *
+     * @param integer $page Current page number
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/",
+     *     defaults={"page": 1},
+     *     name="admin_year_index",
+     * )
+     * @Route(
+     *     "/page/{page}",
+     *     requirements={"page": "[1-9]\d*"},
+     *     name="year_index_paginated",
+     * )
+     * @Method("GET")
+     */
+    public function indexAction($page)
+    {
+        $years = $this->get('app.repository.year')->findAll();
+
+        return $this->view('index', compact('years'));
+    }
+
+    /**
+     * View action.
+     *
+     * @param Year $year Year entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/{id}",
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="admin_year_view",
+     * )
+     * @Method("GET")
+     */
+    public function viewAction(Year $year)
+    {
+        $users = [];
+        return $this->view('view', compact('year', 'users'));
+    }
+
+    /**
+     * Add action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/add",
+     *     name="admin_year_add",
+     * )
+     * @Method({"GET", "POST"})
+     */
+    public function addAction(Request $request)
+    {
+        $year = new Year();
+        $form = $this->createForm(YearType::class, $year);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.repository.year')->save($year);
+            $this->addFlash('success', 'message.created_successfully');
+
+            return $this->redirectToRoute('admin_year_index');
+        }
+
+        return $this->view('add', compact('year', 'form'));
+    }
+
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     * @param \AppBundle\Entity\Year                     $year     Year entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/{id}/edit",
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="admin_year_edit",
+     * )
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Year $year)
+    {
+        $form = $this->createForm(YearType::class, $year);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.repository.year')->save($year);
+            $this->addFlash('success', 'message.created_successfully');
+
+            return $this->redirectToRoute('admin_year_index');
+        }
+
+        return $this->view('edit', compact('year', 'form'));
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     * @param \AppBundle\Entity\Year                     $year     Year entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="admin_year_delete",
+     * )
+     * @Method({"GET", "POST"})
+     */
+    public function deleteAction(Request $request, Year $year)
+    {
+        $form = $this->createForm(FormType::class, $year);
+        $form->handleRequest($request);
+
+        if (($form->isSubmitted() && $form->isValid()) || $request->query->get('q') == 1) {
+            $this->get('app.repository.year')->delete($year);
+            $this->addFlash('success', 'message.deleted_successfully');
+
+            return $this->redirectToRoute('admin_year_index');
+        }
+
+        return $this->view('delete', compact('year', 'form'));
+    }
+}

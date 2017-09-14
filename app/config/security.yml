@@ -1,24 +1,54 @@
 # To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
+# http://symfony.com/doc/current/book/security.html
 security:
-
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        user:
+            id: app.user_provider
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        admin:
+            pattern: ^/admin.*$
             anonymous: ~
-            # activate different ways to authenticate
+            provider: user
+            simple_form:
+                authenticator: app.admin_authenticator
+                login_path: admin_auth_login
+                check_path: admin_auth_login_check
+                default_target_path: /admin
+                username_parameter: login[username]
+                password_parameter: login[password]
+            logout:
+                path: admin_auth_logout
+                target: /admin/login
+            context: app
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+        user:
+            pattern: ^/.*$
+            anonymous: ~
+            provider: user
+            simple_form:
+                authenticator: app.user_authenticator
+                login_path: app_auth_login
+                check_path: app_auth_login_check
+                default_target_path: homepage
+                username_parameter: login[username]
+                password_parameter: login[password]
+            logout:
+                path: app_auth_logout
+                target: /login
+            context: app
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+
+            # access_control:

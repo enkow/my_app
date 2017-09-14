@@ -1,0 +1,2 @@
+parameters:
+    allowed_domains: [uj.edu.pl, student.uj.edu.pl]

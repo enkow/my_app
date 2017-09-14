@@ -1,0 +1,29 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}<i class="fa fa-graduation-cap"></i> {{ 'title.year'|trans }}{% endblock %}
+{% block subtitle %}<a href="{{ url('admin_year_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'button.add'|trans}}</a>{% endblock %}
+
+{% block body %}
+    <table class="data table">
+        <thead>
+            <tr>
+                <th class="id">#</th>
+                <th>{{ 'table.year'|trans }}</th>
+                <th data-orderable="false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in years %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.start }} / {{ item.end }}</td>
+                    <td>
+                        <a href="{{ url('admin_year_view', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-search"></i> {{ 'button.view'|trans }}</a>
+                        <a href="{{ url('admin_year_edit', {'id': item.id}) }}" class="btn btn-info"><i class="fa fa-pencil"></i> {{ 'button.edit'|trans }}</a>
+                        <a href="{{ url('admin_year_delete', {'id': item.id}) }}" class="btn btn-danger deletable" data-href="{{ url('admin_year_delete', {'id': item.id, 'q': 1}) }}"><i class="fa fa-trash"></i> {{ 'button.delete'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

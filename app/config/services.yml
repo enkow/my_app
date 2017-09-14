@@ -4,11 +4,29 @@ parameters:
     #parameter_name: value
 
 services:
+    app.repository.group:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Group
+
     app.repository.tag:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\Tag
+
+    app.repository.user:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\User
+
+    app.repository.year:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Year
 
     app.user_provider:
             class: AppBundle\Security\User\UserProvider
@@ -16,8 +34,8 @@ services:
 
     app.admin_authenticator:
          class:     AppBundle\Security\AdminAuthenticator
-         arguments: ["@security.password_encoder", "@user.repository"]
+         arguments: ["@security.password_encoder", "@app.repository.user"]
 
     app.user_authenticator:
          class:     AppBundle\Security\UserAuthenticator
-         arguments: ["@security.password_encoder", "@user.repository"]
+         arguments: ["@security.password_encoder", "@app.repository.user"]
