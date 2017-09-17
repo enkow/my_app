@@ -26,12 +26,12 @@ security:
                 authenticator: app.admin_authenticator
                 login_path: admin_auth_login
                 check_path: admin_auth_login_check
-                default_target_path: /admin
+                default_target_path: admin
                 username_parameter: login[username]
                 password_parameter: login[password]
             logout:
                 path: admin_auth_logout
-                target: /admin/login
+                target: admin_auth_login
             context: app
 
         user:
@@ -40,14 +40,14 @@ security:
             provider: user
             simple_form:
                 authenticator: app.user_authenticator
-                login_path: app_auth_login
-                check_path: app_auth_login_check
-                default_target_path: homepage
+                login_path: auth_login
+                check_path: auth_login_check
+                default_target_path: /
                 username_parameter: login[username]
                 password_parameter: login[password]
             logout:
-                path: app_auth_logout
-                target: /login
+                path: auth_logout
+                target: auth_login
             context: app
 
 

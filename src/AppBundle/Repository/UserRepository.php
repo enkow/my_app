@@ -6,6 +6,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Role;
 
 /**
  * Class UserRepository.
@@ -35,6 +36,46 @@ class UserRepository extends EntityRepository
         $this->_em->remove($user);
         $this->_em->flush();
     }
+
+    /**
+     * Create User
+     *
+     * @param Symfony\Bridge\Twig\TwigEngine $engine   Templating
+     * @param User                           $user     User
+     * @param Role                           $role     Role
+     * @param string                         $password Hashed password
+     *
+     * @return boolean Result
+     */
+    public function createUser($engine, User $user, Role $role, $password)
+  	{
+        $user->setConfirmToken($token = $this->generateToken());
+    		$user->setRole($role);
+        $user->setPassword($password);
+        $mail = $user->getEmail();
+        $this->save($user);
+
+        return $this->setMessage(
+            $engine,
+            'register',
+            'Rejestracja konta',
+            $mail,
+            compact('token', 'user')
+        );
+  	}
+
+    /**
+     * Confirm User
+     *
+     * @param User $user User
+     *
+     * @return boolean Result
+     */
+    public function confirmUser(User $user)
+  	{
+        $user->setConfirmToken(null);
+        return $this->save($user);
+  	}
 
     /**
      * Reset password

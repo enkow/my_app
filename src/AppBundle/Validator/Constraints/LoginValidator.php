@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * Login Validator.
+ */
+
+namespace AppBundle\Validator\Constraints;
+
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+
+/**
+ * Class LoginValidator
+ *
+ * @package AppBundle\Validator\Constraints
+ */
+class LoginValidator extends ConstraintValidator
+{
+    /**
+     * Validate.
+     *
+     * @param mixed      $entity
+     * @param Constraint $constraint
+     */
+    public function validate($value, Constraint $constraint)
+    {
+        if (!preg_match("/^\d\d\_[a-z]+$/", $value)) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('{{ email }}', $value)
+                ->addViolation();
+        }
+    }
+}

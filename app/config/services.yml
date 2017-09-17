@@ -10,6 +10,12 @@ services:
         arguments:
             - AppBundle\Entity\Group
 
+    app.repository.role:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Role
+
     app.repository.user:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
@@ -23,16 +29,19 @@ services:
             - AppBundle\Entity\Year
 
 
-            
+
+    app.email.domain.validator:
+        class: AppBundle\Validator\Constraints\EmailDomainValidator
+        arguments: ['%allowed_domains%']
 
     app.user_provider:
-            class: AppBundle\Security\User\UserProvider
-            arguments: ["@doctrine.orm.entity_manager"]
+        class: AppBundle\Security\User\UserProvider
+        arguments: ["@doctrine.orm.entity_manager"]
 
     app.admin_authenticator:
-         class:     AppBundle\Security\AdminAuthenticator
-         arguments: ["@security.password_encoder", "@app.repository.user"]
+       class: AppBundle\Security\AdminAuthenticator
+       arguments: ["@security.password_encoder", "@app.repository.user"]
 
     app.user_authenticator:
-         class:     AppBundle\Security\UserAuthenticator
-         arguments: ["@security.password_encoder", "@app.repository.user"]
+       class: AppBundle\Security\UserAuthenticator
+       arguments: ["@security.password_encoder", "@app.repository.user"]

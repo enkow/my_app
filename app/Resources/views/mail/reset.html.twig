@@ -6,7 +6,7 @@
 
 {% block content %}
 
-  {{ 'mail.hi'|trans }}<br><br>
+  {{ 'mail.hi'|trans }} {{ user.username }},<br><br>
   {{ 'mail.reset.txt'|trans }}<br><br>
 
   {% if user.role.name == 'ROLE_ADMIN' %}

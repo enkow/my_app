@@ -1,0 +1,16 @@
+{% extends 'mail/template.html.twig' %}
+
+{% block title %}
+  {{ 'mail.register'|trans }}
+{% endblock %}
+
+{% block content %}
+
+  {{ 'mail.hi'|trans }} {{ user.username }},<br><br>
+  {{ 'mail.register.txt'|trans }}<br><br>
+
+  <a href="{{ url('auth_confirm', {'token': token}) }}">{{ url('auth_confirm', {'token': token}) }}</a><br><br>
+
+  {{ 'mail.greetings'|trans }}
+
+{% endblock %}

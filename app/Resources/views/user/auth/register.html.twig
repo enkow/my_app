@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+  <div class="col-md-12"><br><br><br>
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <button type="submit" class="btn btn-info form"><i class="fa fa-pencil"></i> {{ 'button.register'|trans }}</button>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

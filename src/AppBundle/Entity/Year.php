@@ -118,6 +118,7 @@ class Year
     public function __construct()
     {
         $this->groups = new ArrayCollection();
+        $this->active = false;
     }
 
     /**

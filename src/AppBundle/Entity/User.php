@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as CustomAssert;
 
 /**
  * Class User
@@ -71,6 +72,9 @@ class User implements AdvancedUserInterface, \Serializable
      *     min="3",
      *     max="255",
      * )
+     * @CustomAssert\Login(
+     *     groups={"user-default", "user-register"},
+     * )
      */
     protected $username;
 
@@ -93,6 +97,9 @@ class User implements AdvancedUserInterface, \Serializable
      *     groups={"user-default", "user-register"},
      *     min="3",
      *     max="255",
+     * )
+     * @CustomAssert\EmailDomain(
+     *     groups={"user-default", "user-register"},
      * )
      */
     protected $email;
