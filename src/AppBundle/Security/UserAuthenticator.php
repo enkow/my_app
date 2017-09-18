@@ -67,6 +67,14 @@ class UserAuthenticator implements SimpleFormAuthenticatorInterface
           throw new CustomUserMessageAuthenticationException('security.message.invalid_credentils');
         }
 
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            throw new CustomUserMessageAuthenticationException(
+                'security.message.invalid_credentils',
+                [],
+                100
+            );
+        }
+
         if (!$user->isEnabled()) {
             throw new CustomUserMessageAuthenticationException(
                 'security.message.account_not_confirmed',
@@ -75,9 +83,17 @@ class UserAuthenticator implements SimpleFormAuthenticatorInterface
             );
         }
 
-        if (!$user->isAccountApproved()) {
+        if (!$user->getApproved()) {
             throw new CustomUserMessageAuthenticationException(
                 'security.message.account_not_approved',
+                [],
+                100
+            );
+        }
+
+        if (!$user->getGroup()->getYear()->getActive()) {
+            throw new CustomUserMessageAuthenticationException(
+                'security.message.account_is_expired',
                 [],
                 100
             );

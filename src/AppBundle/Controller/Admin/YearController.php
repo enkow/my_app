@@ -71,7 +71,8 @@ class YearController extends Controller
      */
     public function viewAction(Year $year)
     {
-        $users = [];
+        $users = $this->get('app.repository.user')->findByYear($year);
+        
         return $this->view('view', compact('year', 'users'));
     }
 

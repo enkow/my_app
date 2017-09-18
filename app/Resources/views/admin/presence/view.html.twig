@@ -1,0 +1,70 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}
+  <i class="fa fa-calendar"></i> {{ 'chosen.presence'|trans }}: {{ presence.date|date('d.m.Y') }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-sm-12">
+      <h4>{{ 'helper'|trans }}</h4>
+      <div class="col-sm-3">
+          <button class="btn btn-success"></button> - {{ 'helper.present'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-danger" style="margin-left"></button> - {{ 'helper.absence'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-warning"></button> - {{ 'helper.late'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-info"></button> - {{ 'helper.justification'|trans }}<br><br><br>
+      </div>
+    </div>
+    <hr>
+
+    <table class="data table">
+        <thead>
+            <tr>
+                <th class="id">#</th>
+                <th>{{ 'table.username'|trans }}</th>
+                <th>{{ 'table.group'|trans }}</th>
+                <th>{{ 'table.status'|trans }}</th>
+                <th data-orderable="false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in users %}
+                {% set result = repo.getPresence(item, presence) %}
+                {% if not result|length %}
+                    {% set result = 'danger' %}
+                {% elseif result.status == 1 %}
+                    {% set result = 'success' %}
+                {% elseif result.status == 2 %}
+                    {% set result = 'warning' %}
+                {% else %}
+                    {% set result = 'info' %}
+                {% endif %}
+
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>{{ item.group }}</td>
+                    <td>
+                      <button class="btn btn-{{ result }}"></button>
+                    </td>
+                    <td>
+                        <form action="{{ url('admin_presence_change', {'user': item.id, 'presence': presence.id}) }}" method="POST">
+                          <select class="form-control" name="status">
+                            <option value="0">{{ 'helper.absence'|trans }}</option>
+                            <option value="1">{{ 'helper.present'|trans }}</option>
+                            <option value="2">{{ 'helper.late'|trans }}</option>
+                            <option value="3">{{ 'helper.justification'|trans }}</option>
+                          </select>
+                          <button type="submit" class="btn btn-default form">{{ 'button.change'|trans }}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

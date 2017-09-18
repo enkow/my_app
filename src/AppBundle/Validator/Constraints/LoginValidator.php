@@ -26,7 +26,7 @@ class LoginValidator extends ConstraintValidator
     {
         if (!preg_match("/^\d\d\_[a-z]+$/", $value)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ email }}', $value)
+                ->setParameter('{{ login }}', $value)
                 ->addViolation();
         }
     }

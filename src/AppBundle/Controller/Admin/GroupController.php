@@ -72,6 +72,7 @@ class GroupController extends Controller
     public function viewAction(Group $group)
     {
         $users = [];
+        
         return $this->view('view', compact('group', 'users'));
     }
 

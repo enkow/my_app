@@ -215,6 +215,17 @@ class User implements AdvancedUserInterface, \Serializable
      */
     protected $group;
 
+    /**
+     * User presences
+     *
+     * @var ArrayCollection $presences
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="UserPresence",
+     *     mappedBy="user"
+     * )
+     */
+    protected $presences;
 
     /**
      * Constructor
@@ -222,6 +233,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->approved = false;
+        $this->presences = new ArrayCollection();
     }
 
     /**
@@ -545,5 +557,38 @@ class User implements AdvancedUserInterface, \Serializable
     public function getGroup()
     {
         return $this->group;
+    }
+
+    /**
+     * Add presences
+     *
+     * @param \AppBundle\Entity\UserPresence $presences
+     * @return User
+     */
+    public function addPresence(\AppBundle\Entity\UserPresence $presences)
+    {
+        $this->presences[] = $presences;
+
+        return $this;
+    }
+
+    /**
+     * Remove presences
+     *
+     * @param \AppBundle\Entity\UserPresence $presences
+     */
+    public function removePresence(\AppBundle\Entity\UserPresence $presences)
+    {
+        $this->presences->removeElement($presences);
+    }
+
+    /**
+     * Get presences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPresences()
+    {
+        return $this->presences;
     }
 }

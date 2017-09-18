@@ -208,7 +208,10 @@ class AuthController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $this->get('security.password_encoder')->encodePassword($user, $form->get('password')->getData());
             $this->get('app.repository.user')->changePassword($user, $password);
-            $this->authenticateUser($user);
+            if ($user->getApproved()) {
+                $this->authenticateUser($user);
+            }
+
             $this->addFlash('success', 'message.password_success');
 
             return $this->redirectToRoute('homepage');

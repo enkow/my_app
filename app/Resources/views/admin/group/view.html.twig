@@ -8,7 +8,7 @@
   <div class="col-md-12">
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">{{ 'groups.students'|trans }}</h3>
+        <h3 class="box-title">{{ 'groups.students'|trans }} ({{ group.users|length }})</h3>
         <div class="box-tools pull-right">
           <a href="" style="color:#97a0b3"><i class="fa fa-external-link"></i></a>
         </div>
@@ -20,17 +20,13 @@
               <tr>
                 <th class="id">#</th>
                 <th>{{ 'table.username'|trans }}</th>
-                <th data-orderable="false"></th>
               </tr>
             </thead>
             <tbody>
               {% for item in group.users %}
                 <tr>
                   <td>{{ item.id }}</td>
-                  <td>{{ item.start }} / {{ item.end }}</td>
-                  <td>
-                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> {{ 'button.delete'|trans }}</a>
-                  </td>
+                  <td>{{ item.username }}</td>
                 </tr>
               {% endfor %}
             </tbody>

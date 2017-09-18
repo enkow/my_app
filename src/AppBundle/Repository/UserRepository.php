@@ -38,6 +38,20 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * Approve User
+     *
+     * @param User $user User
+     *
+     * @return boolean Result
+     */
+    public function approve(User $user)
+  	{
+        $user->setApproved(true);
+
+        return $this->save($user);
+  	}
+
+    /**
      * Create User
      *
      * @param Symfony\Bridge\Twig\TwigEngine $engine   Templating
@@ -74,6 +88,7 @@ class UserRepository extends EntityRepository
     public function confirmUser(User $user)
   	{
         $user->setConfirmToken(null);
+
         return $this->save($user);
   	}
 
@@ -131,6 +146,66 @@ class UserRepository extends EntityRepository
         }
 
         return $this->save($user);
+    }
+
+    /**
+     * Find students on year
+     *
+     * @param \AppBundle\Entity\Year $year Year
+     *
+     * @return string Result
+     */
+    public function findByYear($year)
+    {
+        return $this->_em->createQuery('
+            SELECT u
+            FROM AppBundle:User u
+            JOIN AppBundle:Group g
+            WHERE g.id = u.group
+            AND g.year = :year
+            ORDER BY u.username asc
+        ')->setParameter('year', $year)
+        ->getResult();
+    }
+
+    /**
+     * Find students on year
+     *
+     * @param string $string String
+     *
+     * @return string Result
+     */
+    public function findByString($string)
+    {
+        $string = '%'.$string.'%';
+        return $this->_em->createQuery('
+            SELECT u
+            FROM AppBundle:User u
+            WHERE (u.username LIKE :q
+            OR u.email LIKE :q)
+            AND u.group IS NOT NULL
+        ')->setParameter('q', $string)
+        ->getResult();
+    }
+
+    /**
+     * Find students on year
+     *
+     * @param string $string String
+     *
+     * @return string Result
+     */
+    public function getPresence($user, $presence)
+    {
+        return $this->_em->createQuery('
+            SELECT up
+            FROM AppBundle:UserPresence up
+            WHERE up.user = :user
+            AND up.presence = :presence
+        ')->setParameter('user', $user)
+        ->setParameter('presence', $presence)
+        ->setMaxResults(1)
+        ->getOneOrNullResult();
     }
 
     /**

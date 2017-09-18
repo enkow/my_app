@@ -34,7 +34,7 @@ class AjaxController extends Controller
    * )
    * @Method("GET")
    */
-    public function toggleAction(Year $year)
+    public function yearToggleAction(Year $year)
     {
         $year->setActive(!$year->getActive());
         $this->get('app.repository.year')->save($year);

@@ -1,0 +1,37 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}<i class="fa fa-calendar"></i> {{ 'title.presence'|trans }}{% endblock %}
+{% block subtitle %}<a href="{{ url('admin_presence_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'button.add'|trans}}</a>{% endblock %}
+
+{% block body %}
+    <table class="data table">
+        <thead>
+            <tr>
+                <th class="id">#</th>
+                <th>{{ 'table.date'|trans }}</th>
+                <th>{{ 'table.active'|trans }}</th>
+                <th data-orderable="false"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in presences %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.date|date('d.m.Y') }}</td>
+                    <td>
+                        {% if item.active %}
+                            <a href="{{ url('admin_presence_active', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-check"></i> {{ item.group.name }}</a>
+                        {% else %}
+                            <a href="{{ url('admin_presence_active', {'id': item.id}) }}" class="btn btn-danger"><i class="fa fa-close"></i> {{ 'button.not_active'|trans }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url('admin_presence_view', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-search"></i> {{ 'button.view'|trans }}</a>
+                        <a href="{{ url('admin_presence_edit', {'id': item.id}) }}" class="btn btn-info"><i class="fa fa-pencil"></i> {{ 'button.edit'|trans }}</a>
+                        <a href="{{ url('admin_presence_delete', {'id': item.id}) }}" class="btn btn-danger deletable" data-href="{{ url('admin_presence_delete', {'id': item.id, 'q': 1}) }}"><i class="fa fa-trash"></i> {{ 'button.delete'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

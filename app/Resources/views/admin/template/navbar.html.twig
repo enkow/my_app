@@ -4,20 +4,21 @@
 
     <li><a href="{{ url('admin_year_index') }}"><i class="fa fa-graduation-cap"></i> <span>{{ 'navbar.year'|trans }}</span></a></li>
     <li><a href="{{ url('admin_group_index') }}"><i class="fa fa-tags"></i> <span>{{ 'navbar.group'|trans }}</span></a></li>
+    <li>
+			<a href="#" class="expand-tree-view">
+				<i class='fa fa-users'></i>
+				<span>{{ 'navbar.user'|trans }}</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul class="treeview-menu">
+				<li> <a href="{{ url('admin_user_index') }}">{{ 'navbar.searcher'|trans }}</a> </li>
+				<li> <a href="{{ url('admin_user_not_approved') }}">{{ 'navbar.not-approved'|trans }}</a> </li>
+			</ul>
+		</li>
 
+    <li class="header">{{ 'navbar.presences'|trans }}</li>
 
-
-      <!-- <li>
-  			<a href="#" class="expand-tree-view">
-  				<i class='fa fa-tags'></i>
-  				<span>Kategorie</span>
-  				<i class="fa fa-angle-left pull-right"></i>
-  			</a>
-  			<ul class="treeview-menu">
-  				<li> <a href="">Kategorie wydarzeń</a> </li>
-  				<li> <a href="">Kategorie aktualności</a> </li>
-  			</ul>
-  		</li> -->
+    <li><a href="{{ url('admin_presence_index') }}"><i class="fa fa-calendar"></i> <span>{{ 'navbar.presence'|trans }}</span></a></li>
 
 
     <li><a href="{{ url('admin_auth_logout') }}"><i class="fa fa-sign-out "></i> <span>{{ 'navbar.logout'|trans }}</span></a></li>

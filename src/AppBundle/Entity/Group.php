@@ -106,6 +106,18 @@ class Group
     protected $users;
 
     /**
+     * Presence allow group
+     *
+     * @var Group $presence
+     *
+     * @ORM\OneToOne(
+     *     targetEntity="AppBundle\Entity\Presence",
+     *     mappedBy="group",
+     * )
+     */
+    protected $presence;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -205,5 +217,28 @@ class Group
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * Set presence
+     *
+     * @param \AppBundle\Entity\Group $presence
+     * @return Group
+     */
+    public function setPresence(\AppBundle\Entity\Group $presence = null)
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    /**
+     * Get presence
+     *
+     * @return \AppBundle\Entity\Group
+     */
+    public function getPresence()
+    {
+        return $this->presence;
     }
 }

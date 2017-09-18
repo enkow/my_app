@@ -12,7 +12,7 @@
   {% if user.role.name == 'ROLE_ADMIN' %}
     <a href="{{ url('admin_auth_change', {'token': token}) }}">{{ url('admin_auth_change', {'token': token}) }}</a>
   {% else %}
-    <a href="{{ url('admin_auth_change', {'token': token}) }}">{{ url('admin_auth_change', {'token': token}) }}</a>
+    <a href="{{ url('auth_change', {'token': token}) }}">{{ url('admin_auth_change', {'token': token}) }}</a>
   {% endif %}
   <br><br>
   {{ 'mail.greetings'|trans }}
