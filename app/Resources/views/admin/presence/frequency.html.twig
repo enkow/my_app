@@ -25,7 +25,7 @@
                 <th class="id">#</th>
                 <th>{{ 'table.username'|trans }}</th>
                 {% for presence in presences %}
-                    <th>{{ presence.date|date('d/m') }}</th>
+                    <th style="width:5px;">{{ presence.date|date('d/m') }}</th>
                 {% endfor %}
                 <th>{{ 'table.summary'|trans }}</th>
             </tr>
