@@ -1,7 +1,10 @@
 {% extends 'admin/template/page.html.twig' %}
 
 {% block title %}<i class="fa fa-calendar"></i> {{ 'title.presence'|trans }}{% endblock %}
-{% block subtitle %}<a href="{{ url('admin_presence_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'button.add'|trans}}</a>{% endblock %}
+{% block subtitle %}
+    <a href="{{ url('admin_presence_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'button.add'|trans}}</a>
+    <a href="{{ url('admin_presence_frequency') }}" class="btn btn-default"><i class="fa fa-bar-chart"></i> {{ 'button.frequency'|trans}}</a>
+  {% endblock %}
 
 {% block body %}
     <table class="data table">

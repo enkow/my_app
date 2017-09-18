@@ -28,6 +28,12 @@ services:
         arguments:
             - AppBundle\Entity\User
 
+    app.repository.user_presence:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\UserPresence
+
     app.repository.year:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]

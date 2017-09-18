@@ -191,7 +191,8 @@ class UserRepository extends EntityRepository
     /**
      * Find students on year
      *
-     * @param string $string String
+     * @param \AppBundle\Entity\User     $user     User
+     * @param \AppBundle\Entity\Presence $presence Presence
      *
      * @return string Result
      */
@@ -206,6 +207,24 @@ class UserRepository extends EntityRepository
         ->setParameter('presence', $presence)
         ->setMaxResults(1)
         ->getOneOrNullResult();
+    }
+
+    /**
+     * Find students on year
+     *
+     * @param \AppBundle\Entity\User $user User
+     *
+     * @return string Result
+     */
+    public function countPresence($user)
+    {
+        return $this->_em->createQuery('
+            SELECT COUNT(up.id)
+            FROM AppBundle:UserPresence up
+            WHERE up.user = :user
+        ')->setParameter('user', $user)
+        ->setMaxResults(1)
+        ->getSingleScalarResult();
     }
 
     /**

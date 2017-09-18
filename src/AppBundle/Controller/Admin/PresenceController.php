@@ -7,6 +7,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
 use AppBundle\Entity\Presence;
+use AppBundle\Entity\UserPresence;
 use AppBundle\Form\PresenceType;
 use AppBundle\Form\ActivePresenceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -59,6 +60,27 @@ class PresenceController extends Controller
     }
 
     /**
+     * Index action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP Response
+     *
+     * @Route(
+     *     "/frequency",
+     *     name="admin_presence_frequency",
+     * )
+     * @Method("GET")
+     */
+    public function frequencyAction()
+    {
+        $year = $this->get('app.repository.year')->findOneByActive(1);
+        $presences = $this->get('app.repository.presence')->findByYear($year);
+        $repo = $this->get('app.repository.user');
+        $users = $repo->findByYear($year);
+
+        return $this->view('frequency', compact('presences', 'repo', 'users'));
+    }
+
+    /**
      * Active action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request  HTTP Request
@@ -107,19 +129,34 @@ class PresenceController extends Controller
     public function changeStatusAction(Request $request, User $user, Presence $presence)
     {
         $status = $request->request->get('status');
-        if (!$status || $status < 0 || $status > 3) {
+        if ($status === null || $status < 0 || $status > 3) {
             $this->addFlash('danger', 'message.choose_correct_status');
 
             return $this->redirectToRoute('admin_presence_view', ['id' => $presence->getId()]);
         }
 
-        $this->get('app.repository.presence')->save($presence);
+        $userPresence = $this->get('app.repository.user')->getPresence($user, $presence);
+        if (!$status) {
+            if ($userPresence) {
+                $this->get('app.repository.user_presence')->delete($userPresence);
+            }
+            $this->addFlash('success', 'message.updated_successfully');
+
+            return $this->redirectToRoute('admin_presence_view', ['id' => $presence->getId()]);
+        }
+        if ($userPresence) {
+            $userPresence->setStatus($status);
+        } else {
+            $userPresence = new UserPresence();
+            $userPresence->setUser($user);
+            $userPresence->setPresence($presence);
+            $userPresence->setStatus($status);
+        }
+
+        $this->get('app.repository.user_presence')->save($userPresence);
         $this->addFlash('success', 'message.updated_successfully');
 
-        return $this->redirectToRoute('admin_presence_index');
-
-
-        return $this->view('edit', compact('presence', 'form'));
+        return $this->redirectToRoute('admin_presence_view', ['id' => $presence->getId()]);
     }
 
     /**

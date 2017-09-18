@@ -1,0 +1,56 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}<i class="fa fa-bar-chart"></i> {{ 'title.frequency'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="col-sm-12">
+      <h4>{{ 'helper'|trans }}</h4>
+      <div class="col-sm-3">
+          <button class="btn btn-success"></button> - {{ 'helper.present'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-danger" style="margin-left"></button> - {{ 'helper.absence'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-warning"></button> - {{ 'helper.late'|trans }}
+      </div>
+      <div class="col-sm-3">
+          <button class="btn btn-info"></button> - {{ 'helper.justification'|trans }}<br><br>
+      </div>
+    </div>
+    <hr>
+    <table class="data table">
+        <thead>
+            <tr>
+                <th class="id">#</th>
+                <th>{{ 'table.username'|trans }}</th>
+                {% for presence in presences %}
+                    <th>{{ presence.date|date('d/m') }}</th>
+                {% endfor %}
+                <th>{{ 'table.summary'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    {% for presence in presences %}
+                        {% set result = repo.getPresence(user, presence) %}
+                        {% if not result|length %}
+                            {% set result = 'danger' %}
+                        {% elseif result.status == 1 %}
+                            {% set result = 'success' %}
+                        {% elseif result.status == 2 %}
+                            {% set result = 'warning' %}
+                        {% else %}
+                            {% set result = 'info' %}
+                        {% endif %}
+                        <td><button class="btn btn-{{ result }}"></button></td>
+                    {% endfor %}
+                    <td>{{ (repo.countPresence(user) / presences|length * 100)|number_format(2) }}%</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
