@@ -161,7 +161,7 @@ class User implements AdvancedUserInterface, \Serializable
      *     nullable=true
      * )
      */
-    protected  $confirmToken;
+    protected $confirmToken;
 
     /**
      * Last login
@@ -175,7 +175,7 @@ class User implements AdvancedUserInterface, \Serializable
      *     nullable=true
      * )
      */
-    protected  $lastLogin;
+    protected $lastLogin;
 
     /**
      * User role
@@ -228,12 +228,25 @@ class User implements AdvancedUserInterface, \Serializable
     protected $presences;
 
     /**
+     * User results
+     *
+     * @var ArrayCollection $results
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Result",
+     *     mappedBy="user"
+     * )
+     */
+    protected $results;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->approved = false;
         $this->presences = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     /**
@@ -590,5 +603,38 @@ class User implements AdvancedUserInterface, \Serializable
     public function getPresences()
     {
         return $this->presences;
+    }
+
+    /**
+     * Add results
+     *
+     * @param \AppBundle\Entity\Result $results
+     * @return User
+     */
+    public function addResult(\AppBundle\Entity\Result $results)
+    {
+        $this->results[] = $results;
+
+        return $this;
+    }
+
+    /**
+     * Remove results
+     *
+     * @param \AppBundle\Entity\Result $results
+     */
+    public function removeResult(\AppBundle\Entity\Result $results)
+    {
+        $this->results->removeElement($results);
+    }
+
+    /**
+     * Get results
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

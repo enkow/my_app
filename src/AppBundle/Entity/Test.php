@@ -182,11 +182,24 @@ class Test
     protected $questions;
 
     /**
+     * Test results
+     *
+     * @var ArrayCollection $results
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Result",
+     *     mappedBy="test"
+     * )
+     */
+    protected $results;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     /**
@@ -391,5 +404,38 @@ class Test
     public function getIp()
     {
         return $this->ip;
+    }
+
+    /**
+     * Add results
+     *
+     * @param \AppBundle\Entity\Result $results
+     * @return Test
+     */
+    public function addResult(\AppBundle\Entity\Result $results)
+    {
+        $this->results[] = $results;
+
+        return $this;
+    }
+
+    /**
+     * Remove results
+     *
+     * @param \AppBundle\Entity\Result $results
+     */
+    public function removeResult(\AppBundle\Entity\Result $results)
+    {
+        $this->results->removeElement($results);
+    }
+
+    /**
+     * Get results
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>{{ test.name }}:</h1>
+  {{ test.content|raw }}
+  <form action="" method="POST">
+      {% for question in test.questions %}
+        {{ 'question.no'|trans }} {{ loop.index }}. {{ question.content|raw }}
+        <input type="text" name="{{ question.id }}" placeholder="{{ 'answer'|trans }}">
+      {% endfor %}
+      <br><br><button type="submit" class="btn btn-info form">{{ 'button.sent'|trans }}</button>
+  </form>
+
+{% endblock %}

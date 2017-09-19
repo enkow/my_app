@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  Panel Użytkownika
+  <h1>{{ 'user.tests'|trans }}:</h1>
+  {% if test|length %}
+    <a href="{{ url('user_test', {'id': test.id}) }}">{{ test.name }}</a>
+  {% else %}
+    {{ 'no.test'|trans }}
+  {% endif %}
+{% endblock %}

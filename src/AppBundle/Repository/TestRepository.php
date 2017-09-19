@@ -66,4 +66,24 @@ class TestRepository extends EntityRepository
 
         return $points;
     }
+
+    /**
+     * Find available test;
+     *
+     * @param \AppBundle\Entity\User $user User
+     *
+     * @return Test Result
+     */
+    public function findAvailableTest($user)
+    {
+        return $this->_em->createQuery('
+            SELECT t
+            FROM AppBundle:Test t
+            WHERE t.group = :group
+            AND t.end > :now
+        ')->setParameter('group', $user->getGroup())
+        ->setParameter('now', new \DateTime())
+        ->setMaxResults(1)
+        ->getOneOrNullResult();
+    }
 }
