@@ -10,6 +10,12 @@ services:
         arguments:
             - AppBundle\Entity\Group
 
+    app.repository.question:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Question
+
     app.repository.presence:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]

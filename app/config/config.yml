@@ -157,3 +157,14 @@ assetic:
         icheck_js:
             inputs:
                 - %kernel.root_dir%/../app/Resources/public/adminLTE/plugins/iCheck/icheck.min.js
+
+ivory_ck_editor:
+    input_sync: true
+    default_config: full
+    configs:
+        basic:
+            toolbar: basic
+        standard:
+            toolbar: standard
+        full:
+            toolbar: full

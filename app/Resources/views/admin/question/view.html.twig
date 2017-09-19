@@ -1,0 +1,42 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}
+  <i class="fa fa-question-circle"></i> {{ question.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-sm-8">
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ 'question.content'|trans }}</h3>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            {{ question.content|raw }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="box box-warning">
+        <div class="box-header with-border">
+          <h3 class="box-title">{{ 'question.answer'|trans }}</h3>
+        </div>
+        <div class="box-body">
+          <div class="table-responsive">
+            {% if question.type == 1 %}
+              {{ 'choice.one_correct'|trans }}
+            {% elseif question.type == 2 %}
+              {{ 'choice.many_correct'|trans }}
+            {% else %}
+              {{ 'choice.regex'|trans }}
+            {% endif %}
+            <hr>
+            <h3>{{ 'answer'|trans }}</h3>
+            {{ question.answer }}
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

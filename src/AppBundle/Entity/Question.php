@@ -1,0 +1,256 @@
+<?php
+/**
+ * Question entity.
+ */
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Class Question.
+ *
+ * @package AppBundle\Entity
+ *
+ * @ORM\Table(
+ *     name="questions"
+ * )
+ * @ORM\Entity(
+ *     repositoryClass="AppBundle\Repository\QuestionRepository"
+ * )
+ */
+class Question
+{
+    /**
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     */
+    const NUM_ITEMS = 10;
+
+    /**
+     * Primary key.
+     *
+     * @var integer $id
+     *
+     * @ORM\Id
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * Name.
+     *
+     * @var string $name
+     *
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"question-default"}
+     * )
+     */
+    protected $name;
+
+    /**
+     * Content.
+     *
+     * @var string $content
+     *
+     * @ORM\Column(
+     *     name="content",
+     *     type="text",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"question-default"}
+     * )
+     */
+    protected $content;
+
+    /**
+     * Type.
+     *
+     * @var integer $type
+     *
+     * @ORM\Column(
+     *     name="answer_type",
+     *     type="integer",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"question-default"}
+     * )
+     */
+    protected $type;
+
+    /**
+     * Answer.
+     *
+     * @var string $answer
+     *
+     * @ORM\Column(
+     *     name="answer",
+     *     type="string",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"question-default"}
+     * )
+     */
+    protected $answer;
+
+    /**
+     * Points.
+     *
+     * @var integer $points
+     *
+     * @ORM\Column(
+     *     name="points",
+     *     type="integer",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"question-default"}
+     * )
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 100,
+     * )
+     */
+    protected $points;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Question
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return Question
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Question
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set answer
+     *
+     * @param string $answer
+     * @return Question
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Get answer
+     *
+     * @return string
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     * @return Question
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer 
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+}
