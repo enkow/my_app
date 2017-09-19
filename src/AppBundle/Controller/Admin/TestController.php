@@ -136,32 +136,37 @@ class TestController extends Controller
     }
 
     /**
-     * Add action.
+     * Active action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     * @param Test                                      $test    Test
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
-     *     "/add",
+     *     "/{id}/active",
+     *     requirements={"id": "[1-9]\d*"},
      *     name="admin_test_active",
      * )
      * @Method({"GET", "POST"})
      */
-    public function activeAction(Request $request)
+    public function activeAction(Request $request, Test $test)
     {
-        $test = new Test();
-        $form = $this->createForm(TestType::class, $test);
+        if ($test->getEnd()) {
+            $this->addFlash('danger', 'message.already_actived');
+
+            return $this->redirectToRoute('admin_test_index');
+        }
+        $form = $this->createForm(FormType::class, $test);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $test->setMax($this->get('app.repository.test')->getMaxPoints($test));
-            $this->get('app.repository.test')->save($test);
-            $this->addFlash('success', 'message.created_successfully');
+        if (($form->isSubmitted() && $form->isValid()) || $request->query->get('q') == 1) {
+            $this->get('app.repository.test')->active($test);
+            $this->addFlash('success', 'message.actived_successfully');
 
             return $this->redirectToRoute('admin_test_index');
         }
 
-        return $this->view('add', compact('test', 'form'));
+        return $this->view('active', compact('test', 'form'));
     }
 }

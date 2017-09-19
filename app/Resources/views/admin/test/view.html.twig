@@ -31,7 +31,7 @@
       <div class="box-body">
         {{ 'test.time'}}: {{ test.time }} min.<br>
         {{ 'test.max_points'}}: {{ test.max }}<br><br><br>
-        {% if not test.start %}
+        {% if not test.end %}
             <a href="{{ url('admin_test_active', {'id': test.id}) }}" class="btn btn-success"><i class="fa fa-check"></i> {{ 'button.active'|trans }}</a>
         {% else %}
             <a href="{{ url('admin_test_active', {'id': test.id}) }}" class="btn btn-success"><i class="fa fa-pie-chart"></i> {{ 'button.results'|trans }}</a>

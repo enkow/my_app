@@ -37,6 +37,20 @@ class TestRepository extends EntityRepository
     }
 
     /**
+     * Active test
+     *
+     * @param Test $test Test
+     *
+     * @return boolean Result
+     */
+    public function active(Test $test)
+  	{
+        $test->setEnd(new \DateTime('+'.$test->getTime().' minutes'));
+
+        return $this->save($test);
+  	}
+
+    /**
      * Get max points;
      *
      * @param Test $test Test

@@ -79,17 +79,17 @@ class Test
     protected $content;
 
     /**
-     * Start time.
+     * End time.
      *
-     * @var string $start
+     * @var string $end
      *
      * @ORM\Column(
-     *     name="start_time",
+     *     name="end_time",
      *     type="datetime",
      *     nullable=true,
      * )
      */
-    protected $start;
+    protected $end;
 
     /**
      * Time in minutes
@@ -246,26 +246,26 @@ class Test
     }
 
     /**
-     * Set start
+     * Set end
      *
-     * @param \DateTime $start
+     * @param \DateTime $end
      * @return Test
      */
-    public function setStart($start)
+    public function setEnd($end)
     {
-        $this->start = $start;
+        $this->end = $end;
 
         return $this;
     }
 
     /**
-     * Get start
+     * Get end
      *
      * @return \DateTime
      */
-    public function getStart()
+    public function getEnd()
     {
-        return $this->start;
+        return $this->end;
     }
 
     /**
@@ -386,7 +386,7 @@ class Test
     /**
      * Get ip
      *
-     * @return string 
+     * @return string
      */
     public function getIp()
     {

@@ -20,7 +20,13 @@
                 <tr>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
-                    <td><a href="{{ url('admin_test_active', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-check"></i> {{ 'button.active'|trans }}</td>
+                    <td>
+                      {% if item.end %}
+                        <span class="label label-info">{{ 'test.finished'|trans }}</span><br>{{ item.end|date('d.m.Y H:i:s') }}
+                      {% else %}
+                        <a href="{{ url('admin_test_active', {'id': item.id}) }}" class="btn btn-success"><i class="fa fa-check"></i> {{ 'button.active'|trans }}
+                      {% endif %}
+                    </td>
                     <td>{{ item.time }} min</td>
                     <td>{{ item.group }}</td>
                     <td>
