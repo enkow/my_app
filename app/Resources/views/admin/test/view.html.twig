@@ -1,0 +1,42 @@
+{% extends 'admin/template/page.html.twig' %}
+
+{% block title %}
+  <i class="fa fa-file-text"></i> {{ test.name }} ({{ test.group }})
+{% endblock %}
+
+{% block body %}
+  <div class="col-md-8">
+    <div class="box box-info">
+      <div class="box-header with-border">
+        <h3 class="box-title">{{ 'test.info'|trans }}</h3>
+      </div>
+      <div class="box-body">
+        <div class="table-responsive">
+            {{ test.content|raw }}
+            <hr>
+            <h3>{{ 'test.questions'|trans }}</h3>
+            {% for item in test.questions %}
+              <a href="{{ url('admin_question_view', {'id': item.id}) }}">{{ item.name }}</a><br>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="box box-warning">
+      <div class="box-header with-border">
+        <h3 class="box-title">{{ 'test.info'|trans }}</h3>
+      </div>
+      <div class="box-body">
+        {{ 'test.time'}}: {{ test.time }} min.<br>
+        {{ 'test.max_points'}}: {{ test.max }}<br><br><br>
+        {% if not test.start %}
+            <a href="{{ url('admin_test_active', {'id': test.id}) }}" class="btn btn-success"><i class="fa fa-check"></i> {{ 'button.active'|trans }}</a>
+        {% else %}
+            <a href="{{ url('admin_test_active', {'id': test.id}) }}" class="btn btn-success"><i class="fa fa-pie-chart"></i> {{ 'button.results'|trans }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

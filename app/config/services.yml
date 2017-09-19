@@ -40,6 +40,12 @@ services:
         arguments:
             - AppBundle\Entity\UserPresence
 
+    app.repository.test:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Test
+
     app.repository.year:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]

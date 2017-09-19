@@ -92,7 +92,27 @@ class Test
     protected $start;
 
     /**
-     * MAx points.
+     * Time in minutes
+     *
+     * @var integer $time
+     *
+     * @ORM\Column(
+     *     name="max_time",
+     *     type="integer",
+     *     nullable=false,
+     * )
+     * @Assert\NotBlank(
+     *     groups={"test-default"}
+     * )
+     * @Assert\Range(
+     *     groups={"test-default"},
+     *     min = 1,
+     * )
+     */
+    protected $time;
+
+    /**
+     * Max points.
      *
      * @var integer $max
      *
@@ -105,6 +125,34 @@ class Test
     protected $max;
 
     /**
+     * Allowed ip.
+     *
+     * @var string $ip
+     *
+     * @ORM\Column(
+     *     name="ip",
+     *     type="text",
+     *     nullable=true,
+     * )
+     */
+    protected $ip;
+
+    /**
+     * Test group
+     *
+     * @var Presence $group
+     *
+     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\JoinColumn(
+     *     name="group_id",
+     *     referencedColumnName="id",
+     *     nullable=false,
+     *     onDelete="CASCADE"
+     * )
+     */
+    protected $group;
+
+    /**
      * Test's Questions
      *
      * @var ArrayCollection $questions
@@ -115,15 +163,20 @@ class Test
      *     joinColumns={
      *         @ORM\JoinColumn(
      *             name="test_id",
-     *             referencedColumnName="id"
+     *             referencedColumnName="id",
+     *             onDelete="CASCADE",
      *         )
      *     },
      *     inverseJoinColumns={
      *         @ORM\JoinColumn(
      *             name="question_id",
-     *             referencedColumnName="id"
+     *             referencedColumnName="id",
+     *             onDelete="CASCADE",
      *         )
      *     }
+     * )
+     * @Assert\NotBlank(
+     *     groups={"test-default"}
      * )
      */
     protected $questions;
@@ -264,10 +317,79 @@ class Test
     /**
      * Get max
      *
-     * @return integer 
+     * @return integer
      */
     public function getMax()
     {
         return $this->max;
+    }
+
+    /**
+     * Set group
+     *
+     * @param \AppBundle\Entity\Group $group
+     * @return Test
+     */
+    public function setGroup(\AppBundle\Entity\Group $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get group
+     *
+     * @return \AppBundle\Entity\Group
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set time
+     *
+     * @param integer $time
+     * @return Test
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Get time
+     *
+     * @return integer
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return Test
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string 
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 }

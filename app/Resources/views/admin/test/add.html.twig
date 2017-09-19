@@ -1,0 +1,21 @@
+{% extends 'admin/template/page.html.twig' %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}
+  <i class="fa fa-plus"></i> {{ 'add.action'|trans }}
+{% endblock %}
+
+{% block body %}
+  <div class="col-md-12">
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <button type="submit" class="btn btn-success form"><i class="fa fa-plus"></i> {{ 'button.add'|trans }}</button>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('#test_type_questions').select2();
+    </script>
+{% endblock %}

@@ -123,8 +123,9 @@ class Question
      *     groups={"question-default"}
      * )
      * @Assert\Range(
-     *      min = 1,
-     *      max = 100,
+     *     groups={"question-default"},
+     *     min = 1,
+     *     max = 100,
      * )
      */
     protected $points;
@@ -247,7 +248,7 @@ class Question
     /**
      * Get points
      *
-     * @return integer 
+     * @return integer
      */
     public function getPoints()
     {
