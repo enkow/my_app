@@ -50,5 +50,12 @@ security:
                 target: auth_login
             context: app
 
-
-            # access_control:
+    access_control:
+      - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/admin/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/test, role: ROLE_USER }
+      - { path: ^/$, role: ROLE_USER }
+      - { path: ^/admin, role: ROLE_ADMIN }
