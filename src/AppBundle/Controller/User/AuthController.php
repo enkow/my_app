@@ -93,7 +93,7 @@ class AuthController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $user = New User();
+        $user = new User();
         $form = $this->createForm(RegisterType::class, $user, ['validation_groups' => 'user-register']);
         $form->handleRequest($request);
 

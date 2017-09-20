@@ -33,7 +33,8 @@ class UserController extends Controller
     /**
      * Index action.
      *
-     * @param integer $page Current page number
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
+     * @param integer                                   $page    Current page number
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -136,7 +137,7 @@ class UserController extends Controller
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\User                     $user     User entity
+     * @param \AppBundle\Entity\User                    $user    User entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -166,7 +167,7 @@ class UserController extends Controller
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\User                     $user     User entity
+     * @param \AppBundle\Entity\User                    $user    User entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

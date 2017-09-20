@@ -106,8 +106,8 @@ class QuestionController extends Controller
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Question                     $question     Question entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP Request
+     * @param \AppBundle\Entity\Question                $question Question entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

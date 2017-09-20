@@ -23,8 +23,18 @@ class EmailDomain extends Constraint
      */
     public $message = "message.domain.not.allowed";
 
+    /**
+     * Allwed domains
+     *
+     * @var array $domains
+     */
     public $domains = ['uj.edu.pl', 'student.uj.edu.pl'];
 
+    /**
+     * Validate by
+     *
+     * @return EmailDomainValidator
+     */
     public function validatedBy()
     {
         return EmailDomainValidator::class;

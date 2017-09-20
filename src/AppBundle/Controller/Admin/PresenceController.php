@@ -113,8 +113,9 @@ class PresenceController extends Controller
     /**
      * Change status action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Presence                     $presence     Presence entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP Request
+     * @param \AppBundle\Entity\User                    $user     Presence entity
+     * @param \AppBundle\Entity\Presence                $presence Presence entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -221,8 +222,8 @@ class PresenceController extends Controller
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Presence                     $presence     Presence entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP Request
+     * @param \AppBundle\Entity\Presence                $presence Presence entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -251,8 +252,8 @@ class PresenceController extends Controller
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Presence                     $presence     Presence entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP Request
+     * @param \AppBundle\Entity\Presence                $presence Presence entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

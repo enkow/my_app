@@ -432,7 +432,7 @@ class Test
     /**
      * Get results
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getResults()
     {

@@ -33,5 +33,4 @@ class DefaultController extends Controller
             ['name' => $name]
         );
     }
-
 }

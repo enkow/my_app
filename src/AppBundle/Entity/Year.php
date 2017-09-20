@@ -210,6 +210,11 @@ class Year
         return $this->groups;
     }
 
+    /**
+     * To string
+     *
+     * @return string
+     */
     public function __toString()
     {
         return sprintf('%s / %s', $this->getStart(), $this->getEnd());

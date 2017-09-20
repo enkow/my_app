@@ -32,6 +32,9 @@ class AdminAuthenticator implements SimpleFormAuthenticatorInterface
 
     /**
      * Constructor
+     *
+     * @param UserPasswordEncoderInterface $encoder
+     * @param UserRepository               $repository
      */
     public function __construct(UserPasswordEncoderInterface $encoder, UserRepository $repository)
     {
@@ -59,7 +62,7 @@ class AdminAuthenticator implements SimpleFormAuthenticatorInterface
         $passwordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
 
         if (!$passwordValid) {
-          throw new CustomUserMessageAuthenticationException('security.message.invalid_credentils');
+            throw new CustomUserMessageAuthenticationException('security.message.invalid_credentils');
         }
 
         if (!in_array('ROLE_ADMIN', $user->getRoles())) {
@@ -84,8 +87,8 @@ class AdminAuthenticator implements SimpleFormAuthenticatorInterface
     /**
      * Supports token
      *
-     * @param TokenInterface $token        Token interface
-     * @param string         $providerKey  Provider key
+     * @param TokenInterface $token       Token interface
+     * @param string         $providerKey Provider key
      *
      * @return string Result
      */

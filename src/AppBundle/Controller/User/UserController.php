@@ -41,6 +41,8 @@ class UserController extends Controller
     /**
      * Render test.
      *
+     * @param Test $test Test
+     *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(

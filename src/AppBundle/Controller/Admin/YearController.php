@@ -72,7 +72,7 @@ class YearController extends Controller
     public function viewAction(Year $year)
     {
         $users = $this->get('app.repository.user')->findByYear($year);
-        
+
         return $this->view('view', compact('year', 'users'));
     }
 
@@ -109,7 +109,7 @@ class YearController extends Controller
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Year                     $year     Year entity
+     * @param \AppBundle\Entity\Year                    $year    Year entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -139,7 +139,7 @@ class YearController extends Controller
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Year                     $year     Year entity
+     * @param \AppBundle\Entity\Year                    $year    Year entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

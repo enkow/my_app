@@ -44,9 +44,9 @@ class PresenceRepository extends EntityRepository
      * @return boolean Result
      */
     public function active(Presence $presence)
-  	{
+    {
         $presence->getGroup() ? $presence->setActive(true) : $presence->setActive(false);
 
         return $this->save($presence);
-  	}
+    }
 }

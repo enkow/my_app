@@ -45,11 +45,11 @@ class UserRepository extends EntityRepository
      * @return boolean Result
      */
     public function approve(User $user)
-  	{
+    {
         $user->setApproved(true);
 
         return $this->save($user);
-  	}
+    }
 
     /**
      * Create User
@@ -62,9 +62,9 @@ class UserRepository extends EntityRepository
      * @return boolean Result
      */
     public function createUser($engine, User $user, Role $role, $password)
-  	{
+    {
         $user->setConfirmToken($token = $this->generateToken());
-    		$user->setRole($role);
+        $user->setRole($role);
         $user->setPassword($password);
         $mail = $user->getEmail();
         $this->save($user);
@@ -76,7 +76,7 @@ class UserRepository extends EntityRepository
             $mail,
             compact('token', 'user')
         );
-  	}
+    }
 
     /**
      * Confirm User
@@ -86,11 +86,11 @@ class UserRepository extends EntityRepository
      * @return boolean Result
      */
     public function confirmUser(User $user)
-  	{
+    {
         $user->setConfirmToken(null);
 
         return $this->save($user);
-  	}
+    }
 
     /**
      * Reset password
@@ -178,6 +178,7 @@ class UserRepository extends EntityRepository
     public function findByString($string)
     {
         $string = '%'.$string.'%';
+
         return $this->_em->createQuery('
             SELECT u
             FROM AppBundle:User u
@@ -235,7 +236,7 @@ class UserRepository extends EntityRepository
      * @return string Result
      */
     private function generateToken($length = 32)
-  	{
+    {
         $string = '';
         $keys = array_merge(range(0, 9), range('a', 'z'));
         for ($i = 0; $i < $length; $i++) {
@@ -243,7 +244,7 @@ class UserRepository extends EntityRepository
         }
 
         return $string;
-  	}
+    }
 
     /**
      * Set email message
@@ -258,15 +259,15 @@ class UserRepository extends EntityRepository
      */
     private function setMessage($engine, $template, $subject, $to, $data = [])
     {
-      return (new \Swift_Message($subject))
-          ->setFrom('admin@serwis.app')
-          ->setTo($to)
-          ->setBody(
-              $engine->render(
-                  sprintf('mail/%s.html.twig', $template),
-                  $data
-              ),
-              'text/html'
-          );
+        return (new \Swift_Message($subject))
+            ->setFrom('admin@serwis.app')
+            ->setTo($to)
+            ->setBody(
+                $engine->render(
+                    sprintf('mail/%s.html.twig', $template),
+                    $data
+                ),
+                'text/html'
+            );
     }
 }

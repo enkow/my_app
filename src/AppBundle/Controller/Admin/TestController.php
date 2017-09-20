@@ -108,7 +108,7 @@ class TestController extends Controller
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Test                     $test     Test entity
+     * @param \AppBundle\Entity\Test                    $test    Test entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

@@ -72,7 +72,7 @@ class GroupController extends Controller
     public function viewAction(Group $group)
     {
         $users = [];
-        
+
         return $this->view('view', compact('group', 'users'));
     }
 
@@ -109,7 +109,7 @@ class GroupController extends Controller
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Group                     $group     Group entity
+     * @param \AppBundle\Entity\Group                   $group   Group entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -139,7 +139,7 @@ class GroupController extends Controller
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP Request
-     * @param \AppBundle\Entity\Group                     $group     Group entity
+     * @param \AppBundle\Entity\Group                   $group   Group entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *

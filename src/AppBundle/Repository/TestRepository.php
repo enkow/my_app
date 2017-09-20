@@ -44,11 +44,11 @@ class TestRepository extends EntityRepository
      * @return boolean Result
      */
     public function active(Test $test)
-  	{
+    {
         $test->setEnd(new \DateTime('+'.$test->getTime().' minutes'));
 
         return $this->save($test);
-  	}
+    }
 
     /**
      * Get max points;
@@ -60,7 +60,7 @@ class TestRepository extends EntityRepository
     public function getMaxPoints($test)
     {
         $points = 0;
-        foreach($test->getQuestions() as $question) {
+        foreach ($test->getQuestions() as $question) {
             $points += $question->getPoints();
         }
 

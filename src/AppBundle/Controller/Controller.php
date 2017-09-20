@@ -30,10 +30,10 @@ class Controller extends Base
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      */
     protected function view($template, $data = [])
-  	{
-    		if(isset($this->prefix) && $this->prefix !== null) {
-    			   $template = sprintf("%s/%s", $this->prefix, $template);
-    		}
+    {
+        if (isset($this->prefix) && $this->prefix !== null) {
+            $template = sprintf("%s/%s", $this->prefix, $template);
+        }
 
         if (isset($data['form']) && is_object($data['form'])) {
             $data['form'] = $data['form']->createView();
@@ -43,5 +43,5 @@ class Controller extends Base
             sprintf('%s.html.twig', $template),
             $data
         );
-  	}
+    }
 }

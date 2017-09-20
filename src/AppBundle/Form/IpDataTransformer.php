@@ -28,7 +28,7 @@ class IpDataTransformer implements DataTransformerInterface
 
         $ips = json_decode($ip);
 
-        return implode("\n" , $ips);
+        return implode("\n", $ips);
     }
 
     /**

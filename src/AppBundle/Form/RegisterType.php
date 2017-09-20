@@ -71,7 +71,7 @@ class RegisterType extends AbstractType
                         ->where('g.year = y.id')
                         ->andWhere('y.active = 1')
                         ->orderBy('g.name', 'ASC');
-                }
+                },
             ]
         );
     }

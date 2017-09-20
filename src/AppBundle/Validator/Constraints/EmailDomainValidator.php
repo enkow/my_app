@@ -19,7 +19,7 @@ class EmailDomainValidator extends ConstraintValidator
     /**
      * Validate.
      *
-     * @param mixed      $entity
+     * @param mixed      $value
      * @param Constraint $constraint
      */
     public function validate($value, Constraint $constraint)

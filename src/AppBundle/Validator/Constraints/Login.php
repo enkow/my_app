@@ -23,6 +23,11 @@ class Login extends Constraint
      */
     public $message = "message.use.wierzba.login";
 
+    /**
+     * Validate by
+     *
+     * @return EmailDomainValidator
+     */
     public function validatedBy()
     {
         return LoginValidator::class;
