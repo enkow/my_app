@@ -1,0 +1,177 @@
+<?php
+/**
+ * UserPresence entity.
+ */
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Class UserPresence.
+ *
+ * @package AppBundle\Entity
+ *
+ * @ORM\Table(
+ *     name="users_presences"
+ * )
+ * @ORM\Entity(
+ *     repositoryClass="AppBundle\Repository\UserPresenceRepository"
+ * )
+ */
+class UserPresence
+{
+    /**
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+     */
+    const NUM_ITEMS = 10;
+
+    /**
+     * Primary key.
+     *
+     * @var integer $id
+     *
+     * @ORM\Id
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * Status.
+     *
+     * @var string $status
+     *
+     * @ORM\Column(
+     *     name="presence_status",
+     *     type="integer",
+     *     nullable=false,
+     * )
+     */
+    protected $status;
+
+    /**
+     * UserPresence presence
+     *
+     * @var UserPresence $presence
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\Presence",
+     *     inversedBy="userPresences"
+     * )
+     * @ORM\JoinColumn(
+     *     name="presence_id",
+     *     referencedColumnName="id",
+     *     nullable=false,
+     *     onDelete="CASCADE"
+     * )
+     */
+    protected $presence;
+
+    /**
+     * UserPresence user
+     *
+     * @var UserPresence $user
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\User",
+     *     inversedBy="presences"
+     * )
+     * @ORM\JoinColumn(
+     *     name="user_id",
+     *     referencedColumnName="id",
+     *     nullable=false,
+     *     onDelete="CASCADE"
+     * )
+     */
+    protected $user;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return UserPresence
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set presence
+     *
+     * @param \AppBundle\Entity\Presence $presence
+     * @return UserPresence
+     */
+    public function setPresence(\AppBundle\Entity\Presence $presence)
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    /**
+     * Get presence
+     *
+     * @return \AppBundle\Entity\Presence
+     */
+    public function getPresence()
+    {
+        return $this->presence;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return UserPresence
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}
+

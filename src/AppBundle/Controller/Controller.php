@@ -24,7 +24,7 @@ class Controller extends Base
     /**
      * Render view
      *
-     * @param string $tamplate Name of rendered template
+     * @param string $template Name of rendered template
      * @param array  $data     Array of parameters passed to template
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
